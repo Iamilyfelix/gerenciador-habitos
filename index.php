@@ -2,36 +2,7 @@
 session_start(); 
 echo $_SESSION['email'];//aqui ele ta testando se esta pegando o session
 
-try {
-    // Conexão com o PostgreSQL usando PDO
-    $pdo = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=gerenciador', 'postgres','pabd');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erro na conexão com o banco de dados: " . $e->getMessage());
-}
 
-// Verifica se o usuário está logado
-if (!isset($_SESSION['email'])) {
-    die("Você precisa estar logado para acessar esta página.");
-}
-// Obtém o e-mail da sessão
-$email_usuario = $_SESSION['email'];
-
-// Busca o ID do usuário pelo e-mail
-$sql = "SELECT id FROM usuario WHERE email = :email";
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(':email', $email_usuario);
-$stmt->execute();
-$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$usuario) {
-    die("Usuário não encontrado.");
-}
-
-$usuario_id = $usuario['id']; // ID do usuário logado
-
-// Exibir o ID do usuário (apenas para testes)
-echo "Seu ID é: " . $usuario_id;
 /////////////.
 
 if (!isset($_SESSION['email'])) {
@@ -42,10 +13,30 @@ if (!isset($_SESSION['email'])) {
         // Conexão com o PostgreSQL usando PDO
         $pdo = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=gerenciador', 'postgres','pabd');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Obtém o e-mail da sessão
+        $email_usuario = $_SESSION['email'];
     } catch (PDOException $e) {
         die("Erro na conexão com o banco de dados: " . $e->getMessage());
     }
     
+    // Obtém o e-mail da sessão
+    $email_usuario = $_SESSION['email'];
+    // Busca o ID do usuário pelo e-mail
+    $sql = "SELECT id FROM usuario WHERE email = :email";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':email', $email_usuario);
+    $stmt->execute();
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$usuario) {
+        die("Usuário não encontrado.");
+    }
+
+    $usuario_id = $usuario['id']; // ID do usuário logado
+
+    // Exibir o ID do usuário (apenas para testes)
+    echo "Seu ID é: " . $usuario_id;
+    /////////////.
     // Verifica se o formulário foi enviado
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nome_habito'])) {
         $nome_habito = trim($_POST['nome_habito']);
@@ -95,7 +86,7 @@ if (!isset($_SESSION['email'])) {
     </form>
 
     <h2>Hábitos Cadastrados</h2>
-    <form method="POST" action="salvar_habitos.php">
+    <form action="salvar_habitos.php" method="POST" >
             <label for="data">Data do Controle:</label>
             <input type="date" id="data" name="data" required>
             <br>
@@ -107,7 +98,7 @@ if (!isset($_SESSION['email'])) {
             <br>
         <?php endforeach; ?>
         <br>
-        <button type="submit">Salvar</button>
+        <button type="submit" name="submit" >Salvar</button>
     </form>
 </body>
 </html>
