@@ -86,3 +86,6 @@ if (!isset($_SESSION['email'])) {
     
 }
 ?>
+<!--dar o delete nos habitos ja salvos 
+criar historico 
+-->

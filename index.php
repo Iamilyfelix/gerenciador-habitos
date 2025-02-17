@@ -95,10 +95,13 @@ if (!isset($_SESSION['email'])) {
                 <input type="checkbox" name="controle_habitos[]" value="<?= $habito['id']; ?>">
                 <?= htmlspecialchars($habito['nome']); ?>
             </label>
+            <a href="deletar_habito.php?id=<?= $habito['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir este hábito?');">❌</a>
             <br>
         <?php endforeach; ?>
         <br>
         <button type="submit" name="submit" >Salvar</button>
+        <a href="historico.php">meu historico</a>
+        <a href="metas.php">minhas metas</a>
     </form>
 </body>
 </html>
