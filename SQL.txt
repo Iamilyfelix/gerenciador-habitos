@@ -42,3 +42,10 @@ CREATE TABLE habitos (
     usuario_id INT NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );
+CREATE TABLE tarefas (
+    id SERIAL PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    descricao TEXT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+);

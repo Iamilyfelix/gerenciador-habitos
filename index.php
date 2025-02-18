@@ -101,7 +101,7 @@ if (!isset($_SESSION['email'])) {
         <br>
         <button type="submit" name="submit" >Salvar</button>
         <a href="historico.php">meu historico</a>
-        <a href="metas.php">minhas metas</a>
+        <a href="tarefas.php">minhas metas</a>
     </form>
 </body>
 </html>
