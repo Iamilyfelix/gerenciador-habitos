@@ -1,0 +1,40 @@
+.header{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.link{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+/*TAREFAS*/
+.form{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding-bottom: 20px;
+}
+.form-registrar-tarefa .form-control{
+    background-color: #DCDCDC ;
+}
+.table-tarefas{
+    align-items: center;
+    justify-content: center;
+}
+.header-tarefa{
+    display: flex;
+    gap: 5px;
+    margin: 15px;
+}
+/*EDITAR TAREFAS*/
+.input .form-control{
+    background-color: #DCDCDC ;
+}
+.header-editartarefas{
+    display: flex;
+    gap: 5px;
+    padding: 10px;
+    justify-content: baseline;
+}

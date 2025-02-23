@@ -1,5 +1,6 @@
 <?php
-    session_start(); // Inicia a sessão
+    session_start(); // Inicia a sessão 
+    //ta salavando o login do usuario anterior e ta usando ele - eu teria que depois do cadastro pedir pra o usuario fazer login?
 
    
     if(isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha']))
@@ -12,7 +13,7 @@
             $email=$_POST['email'];
             $senha=$_POST['senha'];
 
-            $_SESSION['email'] = $usuario_email;
+           
 
             
             // Prepare a consulta para pegar o email e senha
@@ -25,8 +26,14 @@
             $stmt->execute();
             // Pega uma linha de resultado
             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+            if ($email == "adm@gmail.com" && $senha == "1234") {
+                $_SESSION['email'] = $email;
+                $_SESSION['senha'] = $senha;
+                header("Location: crud_adm.php");
+                exit();
+            }
             // Se o resultado não for vazio, significa que encontramos
-
             if ($resultado) {
                 // O cliente foi encontrado
 

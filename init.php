@@ -10,45 +10,6 @@
 <body>
     <main class="main-init">
         <h1>Gerenciador de Habitos</h1>
-        <div class="table-check">
-            <table class="table table-hover ">
-                <thead>
-                    <tr>
-                        <th colspan="4">Habitos</th>
-                        <th></th>
-                        <th>Descrição</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                <label class="form-check-label" for="flexCheckChecked">
-                                  Habito 1
-                                </label>
-                              </div>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                <label class="form-check-label" for="flexCheckChecked">
-                                  Habito 2
-                                </label>
-                              </div>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
         <div class="nav-init">
             <div id="link-init">
                 <a href="login.php">Login</a>

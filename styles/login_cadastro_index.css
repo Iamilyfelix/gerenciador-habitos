@@ -1,0 +1,99 @@
+/*LOGIN E CADASTRO*/
+.box-login_cadastro{
+    display: flex;
+    justify-content: center;
+    height: 100vh; /* Ocupa 100% da altura da tela */
+    align-items:center ;
+    flex-direction: column;
+    gap: 5px;
+    
+}
+.form-login_cadastro{
+    background-color:#bdbcbc91;
+    border-radius: 20px;
+    padding: 30px;
+}
+.form-login_cadastro p{
+    margin-bottom: 15px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+/*INDEX*/
+.header-habitos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+.container-index{
+    display: flex;
+    height: 100vh; /* Ocupa 100% da altura da tela */
+    align-items:center ;
+    flex-direction: column;
+    gap: 15px;
+}
+.container-index #nome_habito{
+    background-color:#DCDCDC ;
+}
+.box-habitos-salvos{
+    margin-top: 15px;
+    font-size: 19px;
+}
+.box-habitos-salvos input{
+    background-color: #fff;
+}
+.box-habitos-salvos label a{
+    text-decoration: none;
+}
+.box-habitos-salvos label i{
+    color: #FF6B6B;
+}
+body{
+    background-color:#fff;
+}
+.tudo{
+    background-color:#DCDCDC;
+    padding: 15px;
+    margin-top: 10px;
+
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.buton-habitos a{
+    font-size: 15px;
+}
+.erro{
+    color: red;
+    text-align: center; /* Centraliza o texto */
+    margin-top: 10px; /* Adiciona espaçamento */
+    padding: 10px;
+    border: 1px solid red;
+    background-color: #ffe6e6;
+    display: flex; /* Para evitar que ocupe a largura toda */
+    justify-content: center;
+    align-items: center;
+}
+.acerto{
+    color: rgb(45, 144, 6);
+    text-align: center; /* Centraliza o texto */
+    margin-top: 10px; /* Adiciona espaçamento */
+    padding: 10px;
+    border: 1px solid rgb(72, 255, 0);
+    background-color: #d9f7c3;
+    display: flex; /* Para evitar que ocupe a largura toda */
+    justify-content: center;
+    align-items: center;
+}
+.form-cadastro-habitos{
+    margin: 0 35px 0 35px;
+
+}
+.buton-habitos{
+    margin-top: 10px;
+}
+.form-control{
+    color: #5c5c5c;
+}
