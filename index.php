@@ -2,7 +2,7 @@
 session_start();
 //echo $_SESSION['email'];//aqui ele ta testando se esta pegando o session
 
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['email'])){
     echo " voce n pode acessar essa pagina sem ter feito login";
 
 }else{
@@ -31,7 +31,7 @@ if (!isset($_SESSION['email'])) {
 
         // Exibir o ID do usuário (apenas para testes)
         //echo "Seu ID é: " . $usuario_id;
-        /////////////.
+
         // Verifica se o formulário foi enviado
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nome_habito'])) {
             $nome_habito = trim($_POST['nome_habito']);
@@ -82,6 +82,7 @@ if (!isset($_SESSION['email'])) {
     <div class="header-habitos">
         <h2>Registro de Hábitos</h2>
     </div>
+
     <div class="container-index">
         <div class="form-cadastro-habitos col-sm-6">
             <form method="POST">
@@ -89,6 +90,7 @@ if (!isset($_SESSION['email'])) {
                     <input type="text" id="nome_habito" name="nome_habito" class="form-control" placeholder="Digite seu hábito" aria-label="Example text with button addon" aria-describedby="button-addon1">
                     <button class="btn btn-secondary" type="submit">Cadastrar</button>
                 </div>
+
                 <div id="passwordHelpBlock" class="form-text">
                     Exemplo: Fazer exercícios, beber 2L de água por dia.
                 </div>
@@ -111,7 +113,7 @@ if (!isset($_SESSION['email'])) {
                     <div class="box-habitos-salvos">
                         <label>
                             <input class="form-check-input" type="checkbox" name="controle_habitos[]" value="<?= $habito['id']; ?>">
-                            <a href="deletar_habito.php?id=<?= $habito['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir este hábito?');"><i class="bi bi-trash3-fill"></i></a>
+                            <a href="deletar_habito.php?id=<?= $habito['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir este hábito? Ao excluir o hábito, sairá do histórico.');"><i class="bi bi-trash3-fill"></i></a>
                             <?= htmlspecialchars($habito['nome']); ?>
                         </label>
                     <?php endforeach; ?>       
@@ -121,10 +123,11 @@ if (!isset($_SESSION['email'])) {
                         <button class="btn btn-secondary" type="submit" name="submit" >Salvar</button>
                         <a href="historico.php">Historico</a>
                         <a href="tarefas.php">Tarefas</a>
+                        <a href="login.php">Logout</a>
                     </div>
                 </div>
-                </form>
-            </div>
+            </form>
+        </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0JqzY6YAGTm0xQq3aB32ZCqVo8GBr84FbO/tp9O1cHq9p6/9" crossorigin="anonymous"></script> 

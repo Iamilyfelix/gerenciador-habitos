@@ -1,11 +1,5 @@
 //CODIGOS DO SQL
-TABLE CONTATOS
-CREATE TABLE contatos (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(45) NOT NULL,
-    email VARCHAR(45) NOT NULL,
-    celular VARCHAR(15) DEFAULT NULL
-);
+
 //TABELA USUARIO
 CREATE TABLE usuario(
 id SERIAL PRIMARY KEY,
@@ -13,35 +7,24 @@ nome VARCHAR(100) NOT NULL,
 email VARCHAR(150) NOT NULL,
 senha TEXT NOT NULL
 )
-
+//TABELA CONTROLE HABITOS
 CREATE TABLE controle_habitos (
     id SERIAL PRIMARY KEY,
     usuario_id INT NOT NULL,
-    habito_id INT NOT NULL,
-    data_conclusao DATE NOT NULL,
+    habito_id INT NOT NULL, 
+    data DATE NOT NULL,
     concluido BOOLEAN NOT NULL DEFAULT FALSE,
-    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
-    CONSTRAINT fk_habito FOREIGN KEY (habito_id) REFERENCES habitos(id) ON DELETE CASCADE,
-    CONSTRAINT unico_habito_usuario UNIQUE (usuario_id, habito_id) -- Garante que não haja registros duplicados
+    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE,
+    CONSTRAINT fk_habito FOREIGN KEY (habito_id) REFERENCES habitos(id) ON DELETE CASCADE
 );
-//atual
-CREATE TABLE controle_habitos (
-    id SERIAL PRIMARY KEY,
-    usuario_id INT NOT NULL,
-    habito_id INT, -- Removemos o NOT NULL para permitir SET NULL
-    data_conclusao DATE NOT NULL,
-    concluido BOOLEAN NOT NULL DEFAULT FALSE,
-    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
-    CONSTRAINT fk_habito FOREIGN KEY (habito_id) REFERENCES habitos(id) ON DELETE SET NULL,
-);
-
+//TABELA HABITOS
 CREATE TABLE habitos (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    descricao TEXT,
     usuario_id INT NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );
+//TABELA TAREFAS
 CREATE TABLE tarefas (
     id SERIAL PRIMARY KEY,
     usuario_id INT NOT NULL,

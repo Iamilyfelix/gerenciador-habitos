@@ -37,14 +37,11 @@
             if ($resultado) {
                 // O cliente foi encontrado
 
-                /*echo "Login realizado com sucesso!";
-                echo "Bem-vindo, " . $resultado['nome'];
-                */
                 $_SESSION['email'] = $email ;
                 header("Location: index.php");
                 exit();
-            } else {
-            // Email ou senha inválidos
+            }else{
+                //Email ou senha inválidos
                 echo "Credenciais inválidas.";
             }
         } catch (PDOException $e) {

@@ -1,6 +1,8 @@
 <?php
 session_start(); 
-echo $_SESSION['email'];//aqui ele ta testando se esta pegando o session
+
+//aqui ele ta testando se esta pegando o session
+//echo $_SESSION['email'];
 
 if (!isset($_SESSION['email'])) {
     echo " voce n pode acessar essa pagina sem ter feito login";
@@ -31,24 +33,27 @@ if (!isset($_SESSION['email'])) {
     $usuario_id = $usuario['id']; // ID do usuário logado
     
     // Exibir o ID do usuário (apenas para testes)
-    echo "Seu ID é: " . $usuario_id;
+    //echo "Seu ID é: " . $usuario_id;
 
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $email = $_SESSION['email'];
         $data = $_POST['data'];  // Data escolhida pelo usuário
     
-        //isso ta prestando
-    
         if ($usuario) {
             $id_usuario = $usuario['id'];
-            echo"seu id é".$id_usuario;
+
+            //TESTE
+            //echo"seu id é".$id_usuario;
     
             // Recuperar todos os hábitos do usuário
             $stmt = $pdo->prepare("SELECT id FROM habitos WHERE usuario_id = :usuario_id");
             $stmt->execute(['usuario_id' => $id_usuario]);
             $habitos = $stmt->fetchAll(PDO::FETCH_COLUMN);
-            var_dump($habitos);//teste
+
+            //TESTE
+            //var_dump($habitos);
+            
     
             if ($habitos) {
                 foreach ($habitos as $id_habito) {
@@ -66,7 +71,7 @@ if (!isset($_SESSION['email'])) {
                     ]);
                 }
     
-                //NÃO ESTOU GOSTANDO DISSO - PERGUNTAR A DANIEL  
+                
                 $_SESSION['mensagem'] = "Hábito(s) salvo(s) com sucesso!";
                 echo "<script>
                     alert('" . $_SESSION['mensagem'] . "');
@@ -86,6 +91,3 @@ if (!isset($_SESSION['email'])) {
     
 }
 ?>
-<!--dar o delete nos habitos ja salvos 
-criar historico 
--->
