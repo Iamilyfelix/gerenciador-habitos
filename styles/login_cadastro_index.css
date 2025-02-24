@@ -67,23 +67,23 @@ body{
 }
 .erro{
     color: red;
-    text-align: center; /* Centraliza o texto */
-    margin-top: 10px; /* Adiciona espaçamento */
+    text-align: center; 
+    margin-top: 10px; 
     padding: 10px;
     border: 1px solid red;
     background-color: #ffe6e6;
-    display: flex; /* Para evitar que ocupe a largura toda */
+    display: flex; 
     justify-content: center;
     align-items: center;
 }
 .acerto{
     color: rgb(45, 144, 6);
-    text-align: center; /* Centraliza o texto */
-    margin-top: 10px; /* Adiciona espaçamento */
+    text-align: center; 
+    margin-top: 10px; 
     padding: 10px;
     border: 1px solid rgb(72, 255, 0);
     background-color: #d9f7c3;
-    display: flex; /* Para evitar que ocupe a largura toda */
+    display: flex; 
     justify-content: center;
     align-items: center;
 }
