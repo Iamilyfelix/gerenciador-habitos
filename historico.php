@@ -23,11 +23,12 @@ if (!isset($_SESSION['email'])) {
 
     $usuario_id = $usuario['id']; // ID do usuário logado
 
-    $sql = "SELECT h.nome, ch.data, ch.concluido 
-            FROM controle_habitos ch
-            JOIN habitos h ON ch.habito_id = h.id
-            WHERE ch.usuario_id = :usuario_id
-            ORDER BY ch.data DESC";
+    $sql = "SELECT h.nome, rh.data, rh.concluido 
+            FROM registro_habitos rh
+            JOIN habitos h ON rh.habito_id = h.id
+            WHERE rh.usuario_id = :usuario_id
+            ORDER BY rh.data DESC";
+
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);

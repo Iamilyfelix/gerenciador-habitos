@@ -112,7 +112,7 @@ if (!isset($_SESSION['email'])){
                     <?php foreach ($habitos as $habito): ?>
                     <div class="box-habitos-salvos">
                         <label>
-                            <input class="form-check-input" type="checkbox" name="controle_habitos[]" value="<?= $habito['id']; ?>">
+                            <input class="form-check-input" type="checkbox" name="registro_habitos[]" value="<?= $habito['id']; ?>">
                             <a href="deletar_habito.php?id=<?= $habito['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir este hábito? Ao excluir o hábito, sairá do histórico.');"><i class="bi bi-trash3-fill"></i></a>
                             <?= htmlspecialchars($habito['nome']); ?>
                         </label>

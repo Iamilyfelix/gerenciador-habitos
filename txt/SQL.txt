@@ -17,6 +17,15 @@ CREATE TABLE controle_habitos (
     CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE,
     CONSTRAINT fk_habito FOREIGN KEY (habito_id) REFERENCES habitos(id) ON DELETE CASCADE
 );
+CREATE TABLE registro_habitos (
+    id SERIAL PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    habito_id INT NOT NULL, 
+    data DATE NOT NULL,
+    concluido BOOLEAN NOT NULL DEFAULT FALSE,
+    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE,
+    CONSTRAINT fk_habito FOREIGN KEY (habito_id) REFERENCES habitos(id) ON DELETE CASCADE
+);
 //TABELA HABITOS
 CREATE TABLE habitos (
     id SERIAL PRIMARY KEY,
