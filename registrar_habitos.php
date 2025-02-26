@@ -19,8 +19,8 @@ if (!isset($_SESSION['email'])) {
     // Obtém o e-mail da sessão
     $email_usuario = $_SESSION['email'];
     
-    // Busca o ID do usuário pelo e-mail
-    $sql = "SELECT id FROM usuario WHERE email = :email";
+    //pega o id do usuario onde o email é o mesmo guardado no session
+    $sql = "SELECT id FROM usuario WHERE email = :email"; 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':email', $email_usuario);
     $stmt->execute();
@@ -35,10 +35,11 @@ if (!isset($_SESSION['email'])) {
     // Exibir o ID do usuário (apenas para testes)
     //echo "Seu ID é: " . $usuario_id;
 
-
+    //Verifica se o formulário foi enviado
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+
         $email = $_SESSION['email'];
-        $data = $_POST['data'];  // Data escolhida pelo usuário
+        $data = $_POST['data'];  // Data escolhida pelo usuário - estou pegando la do input da pag index
     
         if ($usuario) {
             $id_usuario = $usuario['id'];
@@ -57,7 +58,7 @@ if (!isset($_SESSION['email'])) {
     
             if ($habitos) {
                 foreach ($habitos as $id_habito) {
-                    // Verifica se o hábito foi marcado pelo usuário no formulário
+                    // Verifica se o formulário enviou dados com hábitos concluídos
                     $concluido = isset($_POST['registro_habitos']) && in_array($id_habito, $_POST['registro_habitos']) ? 1 : 0;
     
                     // Insere um novo controle com a data e o status correto

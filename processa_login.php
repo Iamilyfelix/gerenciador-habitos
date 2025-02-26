@@ -1,15 +1,14 @@
 <?php
     session_start(); // Inicia a sessão 
-    //ta salavando o login do usuario anterior e ta usando ele - eu teria que depois do cadastro pedir pra o usuario fazer login?
 
-   
+    //se as variaveis não estiver vazia entre 
     if(isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha']))
     {   
         try{
             // Conexão com o banco de dados PostgreSQL
             $pdo = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=gerenciador', 'postgres','pabd');
 
-            //ACESSA
+            // pega o valor armazenado no input e guarda na variavel
             $email=$_POST['email'];
             $senha=$_POST['senha'];
 
@@ -20,11 +19,13 @@
             $sql="SELECT * FROM usuario WHERE email=:email and senha=:senha";
             $stmt = $pdo->prepare($sql);
 
+            //associa os valores guardados na variavel com os parametros
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':senha', $senha);
-            // Fazer a pergunta ao banco de dados
+            // Fazer a pergunta ao banco de dados 
             $stmt->execute();
-            // Pega uma linha de resultado
+
+            // Pega uma linha de resultado (se tiver)
             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
         
             if ($email == "adm@gmail.com" && $senha == "1234") {

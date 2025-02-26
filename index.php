@@ -2,6 +2,7 @@
 session_start();
 //echo $_SESSION['email'];//aqui ele ta testando se esta pegando o session
 
+//se as variaveis não estiver vazia entre 
 if (!isset($_SESSION['email'])){
     echo " voce n pode acessar essa pagina sem ter feito login";
 
@@ -10,56 +11,56 @@ if (!isset($_SESSION['email'])){
         // Conexão com o PostgreSQL usando PDO
         $pdo = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=gerenciador', 'postgres','pabd');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Obtém o e-mail da sessão
+
+        // pega o valor armazenado na sesssão e guarda na variavel
         $email_usuario = $_SESSION['email'];
 
-
-        // Obtém o e-mail da sessão
-        // $email_usuario = $_SESSION['email'];
         // Busca o ID do usuário pelo e-mail
-        $sql = "SELECT id FROM usuario WHERE email = :email";
+        $sql = "SELECT id FROM usuario WHERE email = :email"; //faz a comparação dos valor da variavel com oq ta no BD
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':email', $email_usuario);
         $stmt->execute();
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$usuario) {
+        if (!$usuario) { //se não tiver resultado (no caso se o fetch for nulo)
             die("Usuário não encontrado.");
         }
 
-        $usuario_id = $usuario['id']; // ID do usuário logado
+        $usuario_id = $usuario['id']; //guarda o id da consulta na variavel
 
         // Exibir o ID do usuário (apenas para testes)
         //echo "Seu ID é: " . $usuario_id;
 
-        // Verifica se o formulário foi enviado
+        //SALVANDO HABITOS
+
+        // Verifica se o formulário foi enviado via metodo post e o isset se o campo input não esta vazio
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nome_habito'])) {
-            $nome_habito = trim($_POST['nome_habito']);
+            $nome_habito = trim($_POST['nome_habito']); //passando o valor do input para a variavel usando a função trim que evita espaços desnecessarios
             
-        if (!empty($nome_habito)) {
-            try {
-                $sql = "INSERT INTO habitos (nome,usuario_id) VALUES (:nome, :usuario_id)";
-                $stmt = $pdo->prepare($sql);
-                $stmt->bindParam(':nome', $nome_habito);
-                $stmt->bindParam(':usuario_id', $usuario_id);
-                $stmt->execute();
-    
-                echo "<p class='acerto'>Hábito cadastrado com sucesso!</p>";
-            } catch (PDOException $e) {
-                echo "<p class='erro'>Erro ao cadastrar: " . $e->getMessage() . "</p>";
+            if (!empty($nome_habito)) { 
+                try {
+                    $sql = "INSERT INTO habitos (nome,usuario_id) VALUES (:nome, :usuario_id)";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->bindParam(':nome', $nome_habito);
+                    $stmt->bindParam(':usuario_id', $usuario_id);
+                    $stmt->execute();
+        
+                    echo "<p class='acerto'>Hábito cadastrado com sucesso!</p>";
+                } catch (PDOException $e) {
+                    echo "<p class='erro'>Erro ao cadastrar: " . $e->getMessage() . "</p>";
+                }
+            } else {
+                echo "<p class='erro'>Por favor, insira um nome para o hábito.</p>";
             }
-        } else {
-            echo "<p class='erro'>Por favor, insira um nome para o hábito.</p>";
-        }
         }
             
-        // Buscar hábitos já cadastrados
-        $habitos = [];
+        // BUSCAR HABITOS JA CADASTRADOS
+        $habitos = [];//defino que habitos é um array
         try {
             $stmt = $pdo->prepare("SELECT * FROM habitos WHERE usuario_id = :usuario_id ORDER BY id DESC");
             $stmt->bindParam(':usuario_id', $usuario_id);
             $stmt->execute(['usuario_id' => $usuario_id]);
-            $habitos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $habitos = $stmt->fetchAll(PDO::FETCH_ASSOC);// O fetchAll retorna todos os resultados da consulta no array habitos.
         } catch (PDOException $e) {
             echo "<p class='erro'>Erro ao buscar hábitos: " . $e->getMessage() . "</p>";
         }
@@ -67,6 +68,7 @@ if (!isset($_SESSION['email'])){
     } catch (PDOException $e) {
         die("Erro na conexão com o banco de dados: " . $e->getMessage());
     }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -87,7 +89,7 @@ if (!isset($_SESSION['email'])){
         <div class="form-cadastro-habitos col-sm-6">
             <form method="POST">
                 <div class="input-group">
-                    <input type="text" id="nome_habito" name="nome_habito" class="form-control" placeholder="Digite seu hábito" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <input type="text" id="nome_habito" name="nome_habito" class="form-control" placeholder="Digite seu hábito" required>
                     <button class="btn btn-secondary" type="submit">Cadastrar</button>
                 </div>
 
@@ -98,7 +100,7 @@ if (!isset($_SESSION['email'])){
             </form>
         </div>
         <div class="form-salvar-habitos col-sm-6">
-            <form action="salvar_habitos.php" method="POST" >
+            <form action="registrar_habitos.php" method="POST" >
                 <label for="data">Data do Registro:</label>
                 <input class="form-control" type="date" id="data" name="data" required>
                 <div class="tudo">
@@ -109,7 +111,7 @@ if (!isset($_SESSION['email'])){
                         </div>
                     </div>
 
-                    <?php foreach ($habitos as $habito): ?>
+                    <?php foreach ($habitos as $habito): ?><!--loop que percorre o array $habitos-->
                     <div class="box-habitos-salvos">
                         <label>
                             <input class="form-check-input" type="checkbox" name="registro_habitos[]" value="<?= $habito['id']; ?>">
@@ -134,7 +136,7 @@ if (!isset($_SESSION['email'])){
 </body>
 </html>
 <?php 
-}
+
 
 
 ?>
