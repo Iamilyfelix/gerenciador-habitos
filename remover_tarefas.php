@@ -3,6 +3,7 @@ $pdo = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=gerenciador', 'postgres','
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 session_start();
 
+//pega o id que esta sendo passado
 if (!isset($_GET['id'])) {
     echo "<script>alert('Faça login!'); window.location.href='tarefas.php';</script>";
     exit;

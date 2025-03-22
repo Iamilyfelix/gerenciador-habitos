@@ -5,13 +5,13 @@ $email_usuario = $_SESSION['email'];
 $pdo = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=gerenciador', 'postgres','pabd');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
+//Isso impede o carregamento da página sem um id válido
 if (!isset($_GET['id'])) {
     echo "<script>alert('Faça login!'); window.location.href='tarefas.php';</script>";
     exit;
 }
 
-// Busca o ID do usuário pelo e-mail
+// Busca o ID do usuário pelo e-mail guardado no session
 $sql = "SELECT id FROM usuario WHERE email = :email";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':email', $email_usuario);
@@ -29,8 +29,8 @@ if (!isset($_SESSION['usuario_id'])) {
     die("Usuário não autenticado.");
 }
 
-$id = $_GET['id'];
-$usuario_id = $_SESSION['usuario_id'];
+$id = $_GET['id']; //Obtém o parâmetro id da URL que corresponde à tarefa a ser editada
+$usuario_id = $_SESSION['usuario_id'];  //garantir que o usuário só possa editar suas próprias tarefas.
 
 $sql = "SELECT * FROM tarefas WHERE id = :id AND usuario_id = :usuario_id";
 $stmt = $pdo->prepare($sql);

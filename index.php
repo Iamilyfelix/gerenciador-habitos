@@ -4,7 +4,14 @@ session_start();
 
 //se as variaveis não estiver vazia entre 
 if (!isset($_SESSION['email'])){
-    echo " voce n pode acessar essa pagina sem ter feito login";
+    $_SESSION['mensagem'] = "Voce não pode acessar essa pagina sem ter feito login";
+    echo "<script>
+        alert('" . $_SESSION['mensagem'] . "');
+        window.location.href = 'login.php';
+    </script>";
+
+    unset($_SESSION['mensagem']); // Limpa a sessão
+    exit();
 
 }else{
     try {

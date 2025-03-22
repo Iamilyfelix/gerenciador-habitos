@@ -3,7 +3,14 @@ session_start();
 $email_usuario = $_SESSION['email'];
 
 if (!isset($_SESSION['email'])) {
-    echo " voce n pode acessar essa pagina sem ter feito login";
+    $_SESSION['mensagem'] = "Voce não pode acessar essa pagina sem ter feito login";
+    echo "<script>
+        alert('" . $_SESSION['mensagem'] . "');
+        window.location.href = 'login.php';
+    </script>";
+
+    unset($_SESSION['mensagem']); // Limpa a sessão
+    exit();
 
 }else{
     $pdo = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=gerenciador', 'postgres','pabd');
@@ -69,7 +76,7 @@ if (!isset($_SESSION['email'])) {
         </table>
     </div>
     <div class="link">
-        <a href="index.php">Sair</a>
+        <a href="index.php">Voltar</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0JqzY6YAGTm0xQq3aB32ZCqVo8GBr84FbO/tp9O1cHq9p6/9" crossorigin="anonymous"></script> 
     </body>

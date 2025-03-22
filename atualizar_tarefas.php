@@ -4,11 +4,13 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Recupera os dados do formulário e da sessão
     $id = $_POST['id'];
     $usuario_id = $_SESSION['usuario_id'];
     $titulo = $_POST['titulo'];
     $descricao = $_POST['descricao'];
 
+    //consulta SQL para atualizar uma tarefa no banco de dados
     $sql = "UPDATE tarefas SET titulo = :titulo, descricao = :descricao WHERE id = :id AND usuario_id = :usuario_id";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);

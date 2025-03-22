@@ -57,11 +57,11 @@ if (!isset($_SESSION['email'])) {
             
     
             if ($habitos) {
-                foreach ($habitos as $id_habito) {
-                    // Verifica se o formulário enviou dados com hábitos concluídos
+                foreach ($habitos as $id_habito) { //percorre os hábitos existentes e verifica se cada um deles foi marcado no formulário.
+                    // verifica se o ID do hábito atual esta dentro do array se sim retorna true se não false
                     $concluido = isset($_POST['registro_habitos']) && in_array($id_habito, $_POST['registro_habitos']) ? 1 : 0;
     
-                    // Insere um novo controle com a data e o status correto
+                    //  ele insere essa informação no banco de dados
                     $stmt = $pdo->prepare("INSERT INTO registro_habitos (usuario_id, habito_id, data, concluido) 
                                            VALUES (:usuario_id, :habito_id, :data, :concluido)");
                     $stmt->execute([

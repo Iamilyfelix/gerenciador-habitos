@@ -14,9 +14,9 @@ session_start(); // Esta linha precisa ser a primeira
 <body>
 
     <div class="box-login_cadastro">
-        <!-- <div class="link-login">
+        <div class="link-login">
             <a href="cadastro.php">Cadastre-se</a>
-        </div> -->
+        </div>
 
         <form class="form-login_cadastro" action="processa_login.php" method="POST">
             <p>Faça seu login</p>

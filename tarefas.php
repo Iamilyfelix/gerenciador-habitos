@@ -2,7 +2,14 @@
   session_start();
   $email_usuario = $_SESSION['email'];
 if (!isset($_SESSION['email'])) {
-    echo " voce n pode acessar essa pagina sem ter feito login";// como faço pra tirar o aparecimento do erro
+    $_SESSION['mensagem'] = "Você não pode acessar essa pagina sem ter feito login";
+    echo "<script>
+        alert('" . $_SESSION['mensagem'] . "');
+        window.location.href = 'login.php';
+    </script>";
+
+    unset($_SESSION['mensagem']); // Limpa a sessão
+    exit();// se o session email nao estiver vazio entre
 
 }else{
     $pdo = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=gerenciador', 'postgres','pabd');
@@ -23,7 +30,8 @@ if (!isset($_SESSION['email'])) {
     $usuario_id = $usuario['id']; // ID do usuário logado
 
     // Buscar todas as tarefas do usuário
-    $sql = "SELECT * FROM tarefas WHERE usuario_id = :usuario_id ORDER BY id DESC";
+    $sql = "SELECT * FROM tarefas WHERE usuario_id = :usuario_id ORDER BY id DESC"; // Ordena os resultados pelo campo id do maior para o menor garantindo que as tarefas mais recentes apareçam primeiro
+     
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
     $stmt->execute();
@@ -80,7 +88,7 @@ if (!isset($_SESSION['email'])) {
         <?php endforeach; ?>
     </table>
     <div class="link">
-        <a href="index.php">Sair</a>
+        <a href="index.php">Voltar</a>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0JqzY6YAGTm0xQq3aB32ZCqVo8GBr84FbO/tp9O1cHq9p6/9" crossorigin="anonymous"></script> 
 </body>
